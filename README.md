@@ -2,6 +2,6 @@
  
 Mi smo fantastični trije.
 
-Mark Kuhar
-Domen Kos
+Mark Kuhar<br>
+Domen Kos<br>
 Grega Logar
