@@ -1,3 +1,7 @@
 # interni-sporocilni-sistem
  
-Mi plešemo lalala
+Mi smo fantastični trije.
+
+Mark Kuhar
+Domen Kos
+Grega Logar
