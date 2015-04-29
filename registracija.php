@@ -26,44 +26,53 @@
     <div class="container">
 
       <form class="form-signin" method="POST" action="">
-        <h2 class="form-signin-heading" align="center">Interni sistem</h2>
+        <h2 class="form-signin-heading" align="center">Registracija</h2>
+
+        <label for="inputime" class="sr-only">Ime</label>
+        <input type="text" id="inputime" class="form-control" name="ime" placeholder="Ime">
+
+        <label for="inputpriimek" class="sr-only">Priimek</label>
+        <input type="text" id="inputtpriimek" class="form-control" name="priimek" placeholder="Priimek">
+
         <label for="inputEmail" class="sr-only">Uporabnisko ime</label>
         <input type="text" id="inputEmail" class="form-control" name="user" placeholder="Uporabnisko ime">
+
         <label for="inputPassword" class="sr-only">Geslo</label>
         <input type="password" id="inputPassword" name="geslo" class="form-control" placeholder="Geslo">
-        <?php
-          
-          if(isset($_POST['submit'])){
-            $con = mysqli_connect("localhost","root","","sporocilni_sistem") or die("Error " . mysqli_error($link));
-
-            $user = mysqli_real_escape_string($con, $_POST['user']);
-            $geslo = mysqli_real_escape_string($con, $_POST['geslo']);
-
-            if($_POST['user'] == "" || $_POST['geslo'] == ""){
-              echo '<font color="red">Izpolnite VSE podatke</font>';
-            }
-            else{
-              $sql = "select ID_uporabnika from uporabnik where uporabnisko_ime ='$user' and geslo ='$geslo'";
-              $select = mysqli_query($con, $sql);
-              if(mysqli_num_rows($select) == 1){
-                session_start();
-                $_SESSION['id'] = mysqli_fetch_row($select)[0];
-                header('Location: profil.php');
-              }
-              else{
-                echo '<font color="red" align="center">Napacni podatki!</font>';
-              }
-            }
-          }
-          if(isset($_POST['registracija']))
-          {
-            header('Location: registracija.php');
-          }
-        ?>
-        <button class="btn btn-lg btn-primary btn-block" name="submit" type="submit">Vpis</button>
-        <button class="btn btn-lg btn-success btn-block" name="registracija">Registracija</button>
+        
+        <button class="btn btn-lg btn-primary btn-block" name="submit" type="submit">Registriraj se</button>
       </form>
     </div> <!-- /container -->
+
+    <?php
+    //dizajn je se treba popraut da nebo isto k vpisna
+    if(isset($_POST['submit']))
+    {
+        $ime=$_POST['ime'];
+        $priimek=$_POST['priimek'];
+        $upoime=$_POST['user'];
+        $geslo=$_POST['geslo'];
+
+        $conn= mysqli_connect("localhost","root","","sporocilni_sistem") or die("Error " . mysqli_error($link));
+        if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+        } 
+
+        $sql="INSERT INTO uporabnik(ime,priimek,uporabnisko_ime,geslo) values('$ime','$priimek','$upoime','$geslo')";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "Uspešno ste se registrirali!";
+            header('Location: index.php');
+        } else {
+            echo "Napaka: <br>" . $conn->error;
+    }
+    }
+    
+    
+
+    
+
+    ?>
 
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
