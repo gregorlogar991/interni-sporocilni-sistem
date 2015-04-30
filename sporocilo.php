@@ -3,7 +3,8 @@
 		<title>Sporocilo</title>
 	</head>
 	<body>
-		<?php
+	<h3>Poslana sporocila</h3>
+	<?php
 			$id = $_GET['id'];
             $con = mysqli_connect("localhost","root","","sporocilni_sistem") or die("Error " . mysqli_error($link));
             $sqlsender = "select u.ime, u.priimek, t.cas from uporabnik u inner join transakcija t on u.id_uporabnika=t.sender";
