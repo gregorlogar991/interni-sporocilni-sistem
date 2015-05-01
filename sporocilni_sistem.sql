@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Gostitelj: 127.0.0.1
--- Čas nastanka: 29. apr 2015 ob 19.12
+-- Čas nastanka: 01. maj 2015 ob 13.50
 -- Različica strežnika: 5.6.20
 -- Različica PHP: 5.5.15
 
@@ -56,25 +56,26 @@ CREATE TABLE IF NOT EXISTS `transakcija` (
   `cas` datetime NOT NULL,
   `sender` int(11) NOT NULL,
   `reciever` int(11) NOT NULL,
-  `ID_sporocila` int(11) NOT NULL
+  `ID_sporocila` int(11) NOT NULL,
+  `prebrano` tinyint(1) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Odloži podatke za tabelo `transakcija`
 --
 
-INSERT INTO `transakcija` (`ID_transakcije`, `cas`, `sender`, `reciever`, `ID_sporocila`) VALUES
-(1, '2015-04-29 16:46:31', 1, 2, 1),
-(2, '2015-04-29 16:55:04', 1, 2, 2),
-(3, '2015-04-29 16:56:48', 2, 1, 3),
-(4, '2015-04-29 17:01:04', 3, 4, 4),
-(5, '2015-04-29 17:01:08', 4, 3, 5),
-(6, '2015-04-29 17:01:13', 5, 1, 6),
-(7, '2015-04-29 17:01:17', 5, 2, 6),
-(8, '2015-04-29 17:01:21', 5, 3, 6),
-(9, '2015-04-29 17:01:26', 5, 4, 6),
-(10, '2015-04-29 17:07:31', 2, 4, 7),
-(11, '2015-04-29 15:19:38', 2, 4, 7);
+INSERT INTO `transakcija` (`ID_transakcije`, `cas`, `sender`, `reciever`, `ID_sporocila`, `prebrano`) VALUES
+(1, '2015-04-29 16:46:31', 1, 2, 1, 1),
+(2, '2015-04-29 16:55:04', 1, 2, 2, 1),
+(3, '2015-04-29 16:56:48', 2, 1, 3, 1),
+(4, '2015-04-29 17:01:04', 3, 4, 4, 1),
+(5, '2015-04-29 17:01:08', 4, 3, 5, 0),
+(6, '2015-04-29 17:01:13', 5, 1, 6, 1),
+(7, '2015-04-29 17:01:17', 5, 2, 6, 1),
+(8, '2015-04-29 17:01:21', 5, 3, 6, 0),
+(9, '2015-04-29 17:01:26', 5, 4, 6, 1),
+(10, '2015-04-29 17:07:31', 2, 4, 7, 1),
+(11, '2015-04-29 15:19:38', 2, 4, 7, 1);
 
 -- --------------------------------------------------------
 
