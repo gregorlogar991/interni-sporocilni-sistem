@@ -48,6 +48,9 @@
               if(mysqli_num_rows($select) == 1){
                 session_start();
                 $_SESSION['id'] = mysqli_fetch_row($select)[0];
+                $id=$_SESSION['id'];
+                $sql= "update uporabnik set zadnja_prijava = now() where ID_uporabnika = '$id'";
+                mysqli_query($con,$sql);
                 header('Location: profil.php');
               }
               else{
