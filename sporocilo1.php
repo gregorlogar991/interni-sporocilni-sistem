@@ -21,6 +21,13 @@
 				echo 'Zadeva: <strong>' . $vsebina[0] . '</strong><br>';
 				echo $vsebina[1];
 			}
+			$sqlquery="update transakcija set prebrano = 1 where ID_transakcije = '$id'";
+			if (mysqli_query($con,$sqlquery)) {
+			    echo "";
+			} 
+			else {
+			    echo "Error updating record: " . $mysqli_error($con);
+			   }
 		?>
 
 	</body>
