@@ -30,17 +30,18 @@
 
         <label for="inputime" class="sr-only">Ime</label>
         <input type="text" id="inputime" class="form-control" name="ime" placeholder="Ime">
-
+        <br>
         <label for="inputpriimek" class="sr-only">Priimek</label>
         <input type="text" id="inputtpriimek" class="form-control" name="priimek" placeholder="Priimek">
-
+        <br>
         <label for="inputEmail" class="sr-only">Uporabnisko ime</label>
         <input type="text" id="inputEmail" class="form-control" name="user" placeholder="Uporabnisko ime">
-
+        <br>
         <label for="inputPassword" class="sr-only">Geslo</label>
         <input type="password" id="inputPassword" name="geslo" class="form-control" placeholder="Geslo">
         
         <button class="btn btn-lg btn-primary btn-block" name="submit" type="submit">Registriraj se</button>
+         <button class="btn btn-lg btn-primary btn-block" name="back" type="back">Nazaj</button>
       </form>
     </div> <!-- /container -->
 
@@ -65,13 +66,12 @@
             header('Location: index.php');
         } else {
             echo "Napaka: <br>" . $conn->error;
+    }}
+    else if(isset($_POST['back']))
+    {
+        header('Location: index.php');
     }
-    }
     
-    
-
-    
-
     ?>
 
 

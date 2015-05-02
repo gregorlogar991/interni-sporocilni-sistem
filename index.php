@@ -33,6 +33,7 @@
         <input type="password" id="inputPassword" name="geslo" class="form-control" placeholder="Geslo">
         <?php
           
+          session_start();
           if(isset($_POST['submit'])){
             $con = mysqli_connect("localhost","root","","sporocilni_sistem") or die("Error " . mysqli_error($link));
 
@@ -43,11 +44,16 @@
               echo '<font color="red">Izpolnite VSE podatke</font>';
             }
             else{
-              $sql = "select ID_uporabnika from uporabnik where uporabnisko_ime ='$user' and geslo ='$geslo'";
+              $sql = "select ID_uporabnika, ime, priimek from uporabnik where uporabnisko_ime ='$user' and geslo ='$geslo'";
               $select = mysqli_query($con, $sql);
               if(mysqli_num_rows($select) == 1){
-                session_start();
-                $_SESSION['id'] = mysqli_fetch_row($select)[0];
+                $row = mysqli_fetch_row($select);
+                $_SESSION['id'] = $row[0];
+                $_SESSION['ime'] = $row[1];
+                $_SESSION['priimek'] = $row[2];                
+                $id=$_SESSION['id'];
+                //$sql= "update uporabnik set zadnja_prijava = now() where ID_uporabnika = '$id'";
+                //mysqli_query($con,$sql);
                 header('Location: profil.php');
               }
               else{
