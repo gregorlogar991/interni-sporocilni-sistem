@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Gostitelj: 127.0.0.1
--- Čas nastanka: 02. maj 2015 ob 15.32
+-- Čas nastanka: 02. maj 2015 ob 15.43
 -- Različica strežnika: 5.6.20
 -- Različica PHP: 5.5.15
 
@@ -34,24 +34,20 @@ CREATE TABLE IF NOT EXISTS `transakcija` (
   `prebrano` tinyint(1) NOT NULL,
   `vsebina` char(200) DEFAULT NULL,
   `zadeva` char(20) DEFAULT NULL
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
 -- Odloži podatke za tabelo `transakcija`
 --
 
 INSERT INTO `transakcija` (`ID_transakcije`, `cas`, `sender`, `reciever`, `prebrano`, `vsebina`, `zadeva`) VALUES
-(1, '2015-04-29 16:46:31', 1, 2, 1, NULL, NULL),
-(2, '2015-04-29 16:55:04', 1, 2, 1, NULL, NULL),
-(3, '2015-04-29 16:56:48', 2, 1, 1, NULL, NULL),
-(4, '2015-04-29 17:01:04', 3, 4, 1, NULL, NULL),
-(5, '2015-04-29 17:01:08', 4, 3, 0, NULL, NULL),
-(6, '2015-04-29 17:01:13', 5, 1, 1, NULL, NULL),
-(7, '2015-04-29 17:01:17', 5, 2, 1, NULL, NULL),
-(8, '2015-04-29 17:01:21', 5, 3, 0, NULL, NULL),
-(9, '2015-04-29 17:01:26', 5, 4, 1, NULL, NULL),
-(10, '2015-04-29 17:07:31', 2, 4, 1, NULL, NULL),
-(11, '2015-04-29 15:19:38', 2, 4, 1, NULL, NULL);
+(14, '2015-05-02 15:43:11', 1, 2, 0, 'TO je sporocilo 1!', 'test'),
+(15, '2015-05-02 15:43:11', 1, 3, 0, 'ksakokdsoadksaods', 'Krnekajij'),
+(16, '2015-05-02 15:43:11', 2, 3, 0, 'Prosim za informacije', 'Prosnja'),
+(17, '2015-05-02 15:43:11', 3, 4, 0, 'Lepe pozdrave iz morja', 'Pozdravi!'),
+(18, '2015-05-02 15:43:11', 5, 1, 0, 'Trava je zdrava', 'Pritozba'),
+(19, '2015-05-02 15:43:11', 4, 5, 0, 'Vabim te na moj rojstni dan, ki bo v sobo 15.6.2015 ob 14.00 v cazinoju lev. Za jedaco in pijaco bo poskrbljeno. S seboj prinesi veliko dobre volje in denarja da  bomo lohka velik kockal', 'Vabilo na rojstni da'),
+(20, '2015-05-02 15:43:11', 5, 4, 0, 'Nogomet je nacin zivljenja', 'Nacin zivljenja');
 
 -- --------------------------------------------------------
 
@@ -110,7 +106,7 @@ ALTER TABLE `uporabnik`
 -- AUTO_INCREMENT tabele `transakcija`
 --
 ALTER TABLE `transakcija`
-MODIFY `ID_transakcije` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+MODIFY `ID_transakcije` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT tabele `uporabnik`
 --
