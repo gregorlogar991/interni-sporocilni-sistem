@@ -13,7 +13,7 @@
 			$id = $_SESSION['id']; //da vids ker uporabnik je prjavljen
             $con = mysqli_connect("localhost","root","","sporocilni_sistem") or die("Error " . mysqli_error($link));
 			$sqlreciever = "select u.ime, u.priimek, t.cas from uporabnik u inner join transakcija t on u.id_uporabnika=t.reciever where t.sender ='$id'";
-			$sqlvsebina = "select s.zadeva, s.vsebina, t.id_transakcije, t.cas from sporocilo s inner join transakcija t on t.id_sporocila = s.id_sporocila where t.sender='$id'";
+			$sqlvsebina = "select t.zadeva, t.vsebina, t.id_transakcije, t.cas from transakcija t where t.sender='$id'";
 			$recieverrez = mysqli_query($con, $sqlreciever);
 			$vsebinarez = mysqli_query($con, $sqlvsebina);
 			while($reciever = mysqli_fetch_row($recieverrez)){
