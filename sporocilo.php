@@ -18,10 +18,11 @@
 				$reciever = mysqli_fetch_row($recieverrez);
 				echo 'Posiljatelj: ' . $sender[0] . ' ' . $sender[1] . '<br>';
 				echo 'Prejemnik: ' . $reciever[0] . ' ' . $reciever[1] . '<br>';
+				echo 'Cas: ' . $vsebina[2] . '<br>';
 				echo 'Zadeva: <strong>' . $vsebina[0] . '</strong><br>';
 				echo $vsebina[1];
 			}
 		?>
-
+		<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
 	</body>
 </html>
