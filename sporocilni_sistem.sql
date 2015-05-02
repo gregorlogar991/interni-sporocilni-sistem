@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Gostitelj: 127.0.0.1
--- Čas nastanka: 02. maj 2015 ob 21.39
+-- Čas nastanka: 02. maj 2015 ob 22.33
 -- Različica strežnika: 5.6.20
 -- Različica PHP: 5.5.15
 
@@ -68,8 +68,7 @@ INSERT INTO `skupinauporabnik` (`id_skupinauporabnik`, `id_lastnika`, `id_skupin
 (10, 1, 4, 2),
 (11, 1, 5, 4),
 (12, 1, 4, 10),
-(13, 1, 3, 7),
-(14, 1, 3, 7);
+(13, 1, 3, 7);
 
 -- --------------------------------------------------------
 
@@ -85,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `transakcija` (
   `prebrano` tinyint(1) NOT NULL,
   `vsebina` char(200) DEFAULT NULL,
   `zadeva` char(20) DEFAULT NULL
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
 
 --
 -- Odloži podatke za tabelo `transakcija`
@@ -98,7 +97,13 @@ INSERT INTO `transakcija` (`ID_transakcije`, `cas`, `sender`, `reciever`, `prebr
 (17, '2015-05-02 15:43:11', 3, 4, 0, 'Lepe pozdrave iz morja', 'Pozdravi!'),
 (18, '2015-05-02 15:43:11', 5, 1, 0, 'Trava je zdrava', 'Pritozba'),
 (19, '2015-05-02 15:43:11', 4, 5, 0, 'Vabim te na moj rojstni dan, ki bo v sobo 15.6.2015 ob 14.00 v cazinoju lev. Za jedaco in pijaco bo poskrbljeno. S seboj prinesi veliko dobre volje in denarja da  bomo lohka velik kockal', 'Vabilo na rojstni da'),
-(20, '2015-05-02 15:43:11', 5, 4, 0, 'Nogomet je nacin zivljenja', 'Nacin zivljenja');
+(20, '2015-05-02 15:43:11', 5, 4, 0, 'Nogomet je nacin zivljenja', 'Nacin zivljenja'),
+(22, '2015-05-02 22:01:44', 1, 3, 0, '', 'kupi jajca'),
+(30, '2015-05-02 22:22:53', 1, 10, 0, 'Pedri', 'Ke ste'),
+(29, '2015-05-02 22:22:53', 1, 2, 0, 'Pedri', 'Ke ste'),
+(28, '2015-05-02 22:22:53', 1, 8, 0, 'Pedri', 'Ke ste'),
+(27, '2015-05-02 22:22:53', 1, 4, 0, 'Pedri', 'Ke ste'),
+(31, '2015-05-02 22:25:04', 1, 10, 0, 'NC', 'Kva je zdej');
 
 -- --------------------------------------------------------
 
@@ -120,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `uporabnik` (
 --
 
 INSERT INTO `uporabnik` (`ID_uporabnika`, `ime`, `priimek`, `uporabnisko_ime`, `geslo`, `zadnja_prijava`) VALUES
-(1, 'Domen', 'Kos', 'dkos', 'kos', '2015-05-02 21:11:56'),
+(1, 'Domen', 'Kos', 'dkos', 'kos', '2015-05-02 22:19:24'),
 (2, 'Mark', 'Kuhar', 'kmark', 'kuhar', '2015-05-01 19:53:31'),
 (3, 'Grega', 'Logar', 'glogar', 'logar', NULL),
 (4, 'Patrik', 'Istinic', 'pistinic', 'istinic', NULL),
@@ -178,7 +183,7 @@ MODIFY `id_skupinauporabnik` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 -- AUTO_INCREMENT tabele `transakcija`
 --
 ALTER TABLE `transakcija`
-MODIFY `ID_transakcije` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+MODIFY `ID_transakcije` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT tabele `uporabnik`
 --
