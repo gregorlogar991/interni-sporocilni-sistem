@@ -47,6 +47,7 @@
               $sql = "select ID_uporabnika, ime, priimek from uporabnik where uporabnisko_ime ='$user' and geslo ='$geslo'";
               $select = mysqli_query($con, $sql);
               if(mysqli_num_rows($select) == 1){
+<<<<<<< HEAD
                 $row = mysqli_fetch_row($select);
                 $_SESSION['id'] = $row[0];
                 $_SESSION['ime'] = $row[1];
@@ -54,6 +55,13 @@
                 $id=$_SESSION['id'];
                 //$sql= "update uporabnik set zadnja_prijava = now() where ID_uporabnika = '$id'";
                 //mysqli_query($con,$sql);
+=======
+                session_start();
+                $_SESSION['id'] = mysqli_fetch_row($select)[0];
+                $id=$_SESSION['id'];
+                $sql= "update uporabnik set zadnja_prijava = now() where ID_uporabnika = '$id'";
+                mysqli_query($con,$sql);
+>>>>>>> origin/master
                 header('Location: profil.php');
               }
               else{
