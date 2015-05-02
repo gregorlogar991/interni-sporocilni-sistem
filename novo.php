@@ -1,59 +1,74 @@
 <html>
 <head>
-<<<<<<< HEAD
 	<meta charset="UTF-8">
-=======
->>>>>>> origin/master
 	<title>Novo sporocilo</title>
 </head>
 <body>
 	<form action="" method="POST">
+		<input type="radio" value="stik" name="naslovnik">
 		Prejemnik:
-<<<<<<< HEAD
 		<select name="prejemnik">
-=======
-		<select>
->>>>>>> origin/master
 			<?php
-            	$con = mysqli_connect("localhost","root","","sporocilni_sistem") or die("Error " . mysqli_error($link));
+				session_start();
+				$id=$_SESSION['id'];
+           	 	$con = mysqli_connect("localhost","root","","sporocilni_sistem") or die("Error " . mysqli_error($link));
             	$sql = "select u.ime, u.priimek, u.id_uporabnika from uporabnik u";
             	$rez = mysqli_query($con, $sql);
             	echo '<option>Izberi prejemnika</option>';
             	while($row = mysqli_fetch_row($rez)){
-<<<<<<< HEAD
             		echo '<option value="' . $row[2] . '">'.$row[0] . ' ' . $row[1] . '</option>';
-=======
-            		echo '<option value="' . $row[2] . '">' . $row[0] . ' ' . $row[1] . '</option>'; 
->>>>>>> origin/master
             	}
 			?>	
-		</select><br>
+		</select>
+		</input><br>
+		<input type="radio" value="skupina" name="naslovnik">
+		Skupina:
+		<select name="skupine">
+			<?php
+           	 	$con = mysqli_connect("localhost","root","","sporocilni_sistem") or die("Error " . mysqli_error($link));
+            	$sqlskupina = "select s.id_skupine, s.naslov from skupina s where s.id_lastnika='$id'";
+            	$rezskupina = mysqli_query($con, $sqlskupina);
+            	echo '<option>Izberi skupino</option>';
+            	while($skupina = mysqli_fetch_row($rezskupina)){
+            		echo '<option value="' . $skupina[0] . '">' . $skupina[1] . '</option>'; 
+            	}
+			?>	
+		</select></input><br>
 		Zadeva: <input name="zadeva"><br>
 		Vsebina: <textarea name="vsebina"></textarea>
-<<<<<<< HEAD
 		<input type="submit" name="poslji" value="Pošlji" >
 
 	</form>
 
 <?php
-session_start();
-$id=$_SESSION['id'];
-if(isset($_POST['poslji']))
-{
 	$sendr=$id;
-	$resivr= $_POST['prejemnik'];
-	$vseb=$_POST['vsebina'];
-	$zad=$_POST['zadeva'];
-
-	$sql="insert into transakcija(cas,sender,reciever,prebrano,vsebina,zadeva)
-		 values(now(),'$sendr','$resivr',0,'$vseb','$zad')";
-	mysqli_query($con,$sql);
-}
+	if(isset($_POST['poslji'])){
+		$vseb=$_POST['vsebina'];
+		$zad=$_POST['zadeva'];
+		if(isset($_POST['naslovnik'])){
+			if($_POST['naslovnik'] == 'stik'){
+				$resivr= $_POST['prejemnik'];
+				$sqlstik="insert into transakcija(cas,sender,reciever,prebrano,vsebina,zadeva)
+					 values(now(),'$sendr','$resivr',0,'$vseb','$zad')";
+				mysqli_query($con,$sqlstik);
+			}
+			else if($_POST['naslovnik'] == 'skupina'){
+				$id_skupine = $_POST['skupine'];
+				$sqlstiki = "select u.id_uporabnika from uporabnik u inner join skupinauporabnik s on u.id_uporabnika=s.id_dodanega where s.id_skupine='$id_skupine'";
+				$rezstiki = mysqli_query($con, $sqlstiki);
+				while($row = mysqli_fetch_row($rezstiki)){
+					$sqlskupina="insert into transakcija(cas,sender,reciever,prebrano,vsebina,zadeva)
+					values(now(),'$sendr','$row[0]',0,'$vseb','$zad')";
+					mysqli_query($con,$sqlskupina);
+				}
+			}
+		}
+		else{
+			echo 'Izberi prejemnika/prejemnike';
+		}
+	}
 
 ?>
-=======
-	</form>
->>>>>>> origin/master
 </body>
 </html>
 <?php
