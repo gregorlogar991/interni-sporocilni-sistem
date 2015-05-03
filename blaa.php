@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Prejeta sporočila</title>
+    <title>Narrow Jumbotron Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
@@ -35,22 +35,20 @@
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="novo.php"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a></li>
-            <li role="presentation"><a href="poslano.php">Poslana sporočila</a></li>
-            <li role="presentation"><a href="skupine.php">Ustvari skupino</a></li>            
-            <li role="presentation"><a href="odjava.php">Odjava</a></li>
+            <li role="presentation" class="active"><a href="novo.php">Novo sporočilo</a></li>
+            <li role="presentation"><a href="#">About</a></li>
+            <li role="presentation"><a href="#">Odjava</a></li>
           </ul>
         </nav>
         <h3 class="text-muted">Prejeta sporočila</h3>
-		<h4 class="text-muted"><?php session_start(); echo "Prijavljeni: ". $_SESSION['ime'].' '. $_SESSION['priimek'] .'</br>Zadnja prijava: '.$_SESSION['prijava']; ?></h4>
       </div>
 
       <div class="jumbotron">
-
         <?php
-        include "povezava.php";
         $osnutek = "";
+        session_start();
         $id = $_SESSION['id']; //da vids ker uporabnik je prjavljen
+        $con = mysqli_connect("localhost","root","","sporocilni_sistem") or die("Error " . mysqli_error($link));
         $sqlreciever = "select u.ime, u.priimek, t.cas from uporabnik u inner join transakcija t on u.id_uporabnika=t.sender where t.reciever ='$id'";
         $sqlvsebina = "select t.zadeva, t.vsebina, t.id_transakcije, t.cas, t.prebrano from transakcija t where t.reciever='$id'";
         $recieverrez = mysqli_query($con, $sqlreciever);
@@ -63,17 +61,18 @@
           }
           if($vsebina[4]==0)
           {
-            echo 'NEPREBRANO<a href="sporocilo1.php?id=' . $vsebina[2] .'" class="list-group-item">' . $reciever[0] . ' ' . $reciever[1] . ' <strong>' . $vsebina[0] . '</strong> - ' . $osnutek . ' ' .  $vsebina[3] . '<a href="izbrisi.php?id=' . $vsebina[2] . '">Izbrisi</a></a>';
+            echo 'NEPREBRANO<a href="sporocilo1.php?id=' . $vsebina[2] .'" class="list-group-item">' . $reciever[0] . ' ' . $reciever[1] . ' <strong>' . $vsebina[0] . '</strong> - ' . $osnutek . ' ' .  $vsebina[3] . '</a>';
             $osnutek = "";
           }
           else
           {
-            echo 'PREBRANO<a href="sporocilo1.php?id=' . $vsebina[2] .'" class="list-group-item">' . $reciever[0] . ' ' . $reciever[1] . ' <strong>' . $vsebina[0] . '</strong> - ' . $osnutek . ' ' .  $vsebina[3] . '<a href="izbrisi.php?id=' . $vsebina[2] . '">Izbrisi</a></a>';
-            $osnutek = ""; 
-        }
+            echo 'PREBRANO<a href="sporocilo1.php?id=' . $vsebina[2] .'" class="list-group-item">' . $reciever[0] . ' ' . $reciever[1] . ' <strong>' . $vsebina[0] . '</strong> - ' . $osnutek . ' ' .  $vsebina[3] . '</a>';
+            $osnutek = "";          
+          }
         }
         ?>
       </div>
+
       <div class="row marketing">
         <div class="col-lg-6">
           Fantastična dva
