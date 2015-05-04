@@ -9,15 +9,23 @@
 		Prejemnik:
 		<select name="prejemnik">
 			<?php
+				include "povezava.php";
 				session_start();
-				$id=$_SESSION['id'];
-           	 	$con = mysqli_connect("localhost","root","","sporocilni_sistem") or die("Error " . mysqli_error($link));
-            	$sql = "select u.ime, u.priimek, u.id_uporabnika from uporabnik u";
-            	$rez = mysqli_query($con, $sql);
-            	echo '<option>Izberi prejemnika</option>';
-            	while($row = mysqli_fetch_row($rez)){
-            		echo '<option value="' . $row[2] . '">'.$row[0] . ' ' . $row[1] . '</option>';
+				if(isset($_SESSION['id']))
+				{
+					$id=$_SESSION['id'];
+	            	$sql = "select u.ime, u.priimek, u.id_uporabnika from uporabnik u";
+	            	$rez = mysqli_query($con, $sql);
+	            	echo '<option>Izberi prejemnika</option>';
+	            	while($row = mysqli_fetch_row($rez)){
+	            		echo '<option value="' . $row[2] . '">'.$row[0] . ' ' . $row[1] . '</option>';
             	}
+				}
+				else
+				{
+					header("location:index.php");
+				}
+				
 			?>	
 		</select>
 		</input><br>
@@ -25,7 +33,6 @@
 		Skupina:
 		<select name="skupine">
 			<?php
-           	 	$con = mysqli_connect("localhost","root","","sporocilni_sistem") or die("Error " . mysqli_error($link));
             	$sqlskupina = "select s.id_skupine, s.naslov from skupina s where s.id_lastnika='$id'";
             	$rezskupina = mysqli_query($con, $sqlskupina);
             	echo '<option>Izberi skupino</option>';

@@ -5,6 +5,9 @@
 	<body>
 	<h3>Poslana sporocila</h3>
 	<?php
+	session_start();
+	if(isset($_SESSION['id']))
+	{
 			include "povezava.php";
 			$id = $_GET['id'];
             $sqlsender = "select u.ime, u.priimek, t.cas from uporabnik u inner join transakcija t on u.id_uporabnika=t.sender where t.id_transakcije='$id'";
@@ -21,7 +24,12 @@
 				echo 'Zadeva: <strong>' . $vsebina[0] . '</strong><br>';
 				echo $vsebina[1];
 			}
-		?>
+	}
+	else
+	{
+		header("location:index.php");
+	}
+	?>
 
 	</body>
 </html>
