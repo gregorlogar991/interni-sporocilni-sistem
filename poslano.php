@@ -13,7 +13,7 @@
     <title>Poslana sporočila</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="jumbotron-narrow.css" rel="stylesheet">
@@ -35,9 +35,10 @@
         <nav>
           <ul class="nav nav-pills pull-right">
             <li role="presentation" class="active"><a href="novo.php"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a></li>
-            <li role="presentation"><a href="profil.php">Prejeta sporočila</a></li>
+            <li role="presentation"><a href="profil.php?predal=0">Prejeta sporočila</a></li>
             <li role="presentation" class="active"><a href="poslano.php">Poslana sporočila</a></li>
             <li role="presentation"><a href="skupine.php">Ustvari skupino</a></li>
+            <li role="presentation"><a href="predal.php">Ustvari predal</a></li>
             <li role="presentation"><a href="odjava.php">Odjava</a></li>
           </ul>
         </nav>
@@ -77,10 +78,10 @@
             echo '<td>' . $reciever[0] . ' ' . $reciever[1] . '</a></td>';
             echo '<td><strong><a href="sporocilo.php?id=' . $vsebina[2] . '">' . $vsebina[0] . '</a></strong></td>';
             if(str_word_count($osnutek) == 5){
-              echo '<td><a href="sporocilo1.php?id=' . $vsebina[2] . '">' . $osnutek . '...</a></td>';
+              echo '<td><a href="sporocilo.php?id=' . $vsebina[2] . '">' . $osnutek . '...</a></td>';
             }
             else{
-              echo '<td><a href="sporocilo1.php?id=' . $vsebina[2] . '">' . $osnutek . '</a></td>';
+              echo '<td><a href="sporocilo.php?id=' . $vsebina[2] . '">' . $osnutek . '</a></td>';
             }
             echo '<td>' .  $vsebina[3] . '</td>';
             echo '<td><a href="izbrisi.php?id=' . $vsebina[2] . '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>';

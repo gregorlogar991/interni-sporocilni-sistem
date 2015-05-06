@@ -13,7 +13,7 @@
     <title>Poslana sporočila</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="jumbotron-narrow.css" rel="stylesheet">
@@ -35,9 +35,10 @@
         <nav>
           <ul class="nav nav-pills pull-right">
             <li role="presentation" class="active"><a href="novo.php"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a></li>
-            <li role="presentation"><a href="profil.php">Prejeta sporočila</a></li>
+            <li role="presentation"><a href="profil.php?predal=0">Prejeta sporočila</a></li>
             <li role="presentation"><a href="poslano.php">Poslana sporočila</a></li>
             <li role="presentation" class="active"><a href="skupine.php">Ustvari skupino</a></li>
+            <li role="presentation"><a href="predal.php">Ustvari predal</a></li>
             <li role="presentation"><a href="odjava.php">Odjava</a></li>
           </ul>
         </nav>
@@ -50,7 +51,7 @@
 				<div class="input-group" style="width:30%; margin-left:auto; margin-right:auto;">
 			      <input type="text" name="imeskupine" size="10" class="form-control" placeholder="Nova skupina...">
 			      <span class="input-group-btn">
-			        <button class="btn btn-default" name="dodajskupino" type="button">Dodaj</button>
+			        <button class="btn btn-default" name="dodajskupino">Dodaj</button>
 			      </span>
 			    </div><!-- /input-group --><br>
 			Stik 
@@ -95,6 +96,7 @@
 		if($novaskupina != ""){
 			$sqldodaj = "INSERT INTO skupina(naslov, id_lastnika) VALUES ('$novaskupina', $id_prijavljen);";
 			mysqli_query($con, $sqldodaj);
+			header('Location: skupine.php');
 		}
 		else{
 			echo '<font color="red">Vpisi ime!</font>';

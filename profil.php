@@ -13,7 +13,7 @@
     <title>Prejeta sporočila</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="jumbotron-narrow.css" rel="stylesheet">
@@ -35,13 +35,14 @@
         <nav>
           <ul class="nav nav-pills pull-right">
             <li role="presentation" class="active"><a href="novo.php"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a></li>
-            <li role="presentation" class="active"><a href="profil.php">Prejeta sporočila</a></li>
+            <li role="presentation" class="active"><a href="profil.php?predal=0">Prejeta sporočila</a></li>
             <li role="presentation"><a href="poslano.php">Poslana sporočila</a></li>
-            <li role="presentation"><a href="skupine.php">Ustvari skupino</a></li>            
+            <li role="presentation"><a href="skupine.php">Ustvari skupino</a></li> 
+            <li role="presentation"><a href="predal.php">Ustvari predal</a></li>           
             <li role="presentation"><a href="odjava.php">Odjava</a></li>
           </ul>
         </nav>
-        <h3 class="text-muted">Prejeta sporočila <span class="badge">
+        <h3 class="text-muted">Prejeta sporočila 
         <?php
           include "povezava.php";
           session_start();
@@ -50,21 +51,49 @@
           $rez=mysqli_query($con,$sql);
           if(mysqli_num_rows($rez) == 1)
             $row = mysqli_fetch_row($rez);
-          echo ' '.$row[0];
+          if($row[0]>0)
+          {
+           echo '<span class="badge">'; echo ' '.$row[0]; echo '</span>';
+          }
+          
         ?>
-        </span></h3></div>
+       </h3></div>
 		<h4 class="text-muted"><?php echo "Prijavljeni: ". $_SESSION['ime'].' '. $_SESSION['priimek'] .'</br>Zadnja prijava: '.$_SESSION['prijava']; ?></h4>
+    Predali:
+    <?php
+      $sqlpredal = "select id_predala, naziv from predal where id_lastnika='$id'";
+      $rezpredal = mysqli_query($con, $sqlpredal);
+      echo '<a href="profil.php?predal=0">Vse</a>';
+      while($predal = mysqli_fetch_row($rezpredal)){
+        echo ' | ';
+        echo '<a href="profil.php?predal=' . $predal[0] . '">' . $predal[1] . '</a>'; 
+      }
+    ?>
       <div class="jumbotron">
 
         <?php
         if(isset($_SESSION['id']))
         {
+          $get_predala = $_GET['predal'];
           $osnutek = "";
           $id = $_SESSION['id']; //da vids ker uporabnik je prjavljen
-          $sqlreciever = "select u.ime, u.priimek, t.cas from uporabnik u inner join transakcija t on u.id_uporabnika=t.sender where t.reciever ='$id' order by t.cas desc";
-          $sqlvsebina = "select t.zadeva, t.vsebina, t.id_transakcije, t.cas, t.prebrano from transakcija t where t.reciever='$id' order by t.cas desc";
-          $recieverrez = mysqli_query($con, $sqlreciever);
-          $vsebinarez = mysqli_query($con, $sqlvsebina);
+          if($get_predala == 0){
+            echo '<h3>Vsa prejeta</h3>';
+            $sqlreciever = "select u.ime, u.priimek, t.cas from uporabnik u inner join transakcija t on u.id_uporabnika=t.sender where t.reciever ='$id' order by t.cas desc";
+            $sqlvsebina = "select t.zadeva, t.vsebina, t.id_transakcije, t.cas, t.prebrano from transakcija t where t.reciever='$id' order by t.cas desc";
+            $recieverrez = mysqli_query($con, $sqlreciever);
+            $vsebinarez = mysqli_query($con, $sqlvsebina);
+          }
+          else{
+            $sqlpredal = "select UPPER(p.naziv) from predal p where id_predala='$get_predala'";
+            $rezpredal = mysqli_query($con, $sqlpredal);
+            $predal = mysqli_fetch_row($rezpredal);
+            echo '<h3>' . $predal[0] . '</h3>';
+            $sqlreciever = "select u.ime, u.priimek, t.cas from uporabnik u inner join transakcija t on u.id_uporabnika=t.sender where t.reciever ='$id' and t.id_predala='$get_predala' order by t.cas desc";
+            $sqlvsebina = "select t.zadeva, t.vsebina, t.id_transakcije, t.cas, t.prebrano from transakcija t where t.reciever='$id' and t.id_predala='$get_predala' order by t.cas desc";
+            $recieverrez = mysqli_query($con, $sqlreciever);
+            $vsebinarez = mysqli_query($con, $sqlvsebina);
+          }
           echo '<table class="table">';
           echo '<thead>';
           echo '<tr>';
@@ -94,7 +123,9 @@
                 }
 
                 echo '<td>' .  $vsebina[3] . '</td>';
-                echo '<td><a href="izbrisi.php?id=' . $vsebina[2] . '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>';
+                echo '<td>';
+                echo '<a href="izbrisi.php?id=' . $vsebina[2] . '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>';
+                echo '</td>';
                 echo '</tr>';
                 $osnutek = "";
               }
@@ -110,14 +141,19 @@
                   echo '<td><a href="sporocilo1.php?id=' . $vsebina[2] . '">' . $osnutek . '</a></td>';
                 }
                 echo '<td>' .  $vsebina[3] . '</td>';
-                echo '<td><a href="izbrisi.php?id=' . $vsebina[2] . '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>';
+                echo '<td>';
+                if($get_predala != 0){
+                  echo '<a href="izbrisiizpredala.php?id=' . $vsebina[2] . '">Izbrisi iz predala     </a>';
+                }
+                echo '<a href="izbrisi.php?id=' . $vsebina[2] . '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>';
+                echo '</td>';
                 echo '</tr>';
                 $osnutek = ""; 
               }
           }
         }
         else{
-          echo '</table>Nimate prejetih sporocil!';
+          echo '</table>V tem predalu nimate sporocil!';
         }
         }
       else

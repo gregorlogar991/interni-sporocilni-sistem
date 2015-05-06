@@ -10,11 +10,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 
-      <link rel="stylesheet" type="text/css" href="loginRegistracija.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="loginRegistracija.css">
 
     <title>Interni sporocilni sistem</title>
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap.min.css" rel="stylesheet">
 
     <link href="signin.css" rel="stylesheet">
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
@@ -44,7 +43,6 @@
               $user = mysqli_real_escape_string($con, $_POST['user']);
               $geslo = md5($_POST['geslo']); //spremeni bazo na 32 znakov za geslo!!
               echo $geslo;
-
               if($_POST['user'] == "" || $_POST['geslo'] == ""){
                 echo '<font color="red">Izpolnite VSE podatke</font>';
               }
@@ -63,7 +61,7 @@
                   $id=$_SESSION['id'];
                   //$sql= "update uporabnik set zadnja_prijava = now() where ID_uporabnika = '$id'";
                   //mysqli_query($con,$sql);
-                  header('Location: profil.php');
+                  header('Location: profil.php?predal=0');
                 }
                 else{
                   echo '<font color="red" align="center">Napacni podatki!</font>';
