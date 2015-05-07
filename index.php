@@ -9,11 +9,11 @@
     <link rel="icon" href="../../favicon.ico">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-      <link rel="stylesheet" type="text/css" href="loginRegistracija.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="loginRegistracija.css">
 
     <title>Interni sporocilni sistem</title>
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap.min.css" rel="stylesheet">
 
     <link href="signin.css" rel="stylesheet">
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
@@ -33,12 +33,14 @@
         <?php
           
           session_start();
-          if(isset($_POST['submit'])){
-            $con = mysqli_connect("localhost","root","","sporocilni_sistem") or die("Error " . mysqli_error($link));
+          if(isset($_SESSION['id'])){
+            header('Location: profil.php');
+          }
+          else{
+            if(isset($_POST['submit'])){
+              $con = mysqli_connect("localhost","root","","sporocilni_sistem") or die("Error " . mysqli_error($link));
 
-            $user = mysqli_real_escape_string($con, $_POST['user']);
-            $geslo = mysqli_real_escape_string($con, $_POST['geslo']);
-
+<<<<<<< HEAD
             if($_POST['user'] == "" || $_POST['geslo'] == ""){
               echo '<font color="red">Izpolnite VSE podatke</font>';
             }
@@ -63,15 +65,40 @@
                 //$sql= "update uporabnik set zadnja_prijava = now() where ID_uporabnika = '$id'";
                 //mysqli_query($con,$sql);
                 header('Location: profil.php');
+=======
+              $user = mysqli_real_escape_string($con, $_POST['user']);
+              $geslo = md5($_POST['geslo']); //spremeni bazo na 32 znakov za geslo!!
+              echo $geslo;
+              if($_POST['user'] == "" || $_POST['geslo'] == ""){
+                echo '<font color="red">Izpolnite VSE podatke</font>';
+>>>>>>> 45dd96a7907ef6e48d8265eb403375bc9f6d7195
               }
               else{
-                echo '<font color="red" align="center">Napacni podatki!</font>';
+                $sql = "select ID_uporabnika, ime, priimek, zadnja_prijava from uporabnik where uporabnisko_ime ='$user' and geslo ='$geslo'";
+                $select = mysqli_query($con, $sql);
+                if(mysqli_num_rows($select) == 1){
+                  $row = mysqli_fetch_row($select);
+                  $_SESSION['id'] = $row[0];
+                  $_SESSION['ime'] = $row[1];
+                  $_SESSION['priimek'] = $row[2];
+                  if($row[3] == null)
+                    $_SESSION['prijava']="To je vas prvi obisk";
+                  else if($row[3] != null)
+                    $_SESSION['prijava']=$row[3];        
+                  $id=$_SESSION['id'];
+                  //$sql= "update uporabnik set zadnja_prijava = now() where ID_uporabnika = '$id'";
+                  //mysqli_query($con,$sql);
+                  header('Location: profil.php?predal=0');
+                }
+                else{
+                  echo '<font color="red" align="center">Napacni podatki!</font>';
+                }
               }
             }
-          }
-          if(isset($_POST['registracija']))
-          {
-            header('Location: registracija.php');
+            if(isset($_POST['registracija']))
+            {
+              header('Location: registracija.php');
+            }
           }
         ?>
         <button class="btn btn-lg btn-primary btn-block" name="submit" type="submit">Vpis</button>

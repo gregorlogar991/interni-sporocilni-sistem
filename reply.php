@@ -9,6 +9,7 @@
 //TLE SAM DOLZINO FORME SPREMEN U CSS NA 50% RECIMO DA NE BO PREVEC K JE GRDO
 include "povezava.php";
 session_start();
+<<<<<<< HEAD
 $ime=$_SESSION['odgovor']['odgovorime'];
 $priimek=$_SESSION['odgovor']['odgovorpriimek'];
 if(isset($_POST['poslji']))
@@ -22,6 +23,29 @@ if(isset($_POST['poslji']))
 	mysqli_query($con,$sql);
 	header("location:profil.php");
 }
+=======
+if(isset($_SESSION['id']))
+{
+	$ime=$_SESSION['odgovor']['odgovorime'];
+	$priimek=$_SESSION['odgovor']['odgovorpriimek'];
+	if(isset($_POST['poslji']))
+	{
+		$vsebina=$_POST['vsebina'];
+		$zadeva=$_POST['zadeva'];
+		$id=$_SESSION['odgovor']['odgovorid'];
+		$idd=$_SESSION['id'];
+		$sql="insert into transakcija(cas,sender,reciever,prebrano,vsebina,zadeva)
+			values(now(),'$idd','$id',0,'$vsebina','$zadeva')";
+		mysqli_query($con,$sql);
+		header("location:profil.php");
+}
+}
+else
+{
+	header("location:index.php");
+}
+
+>>>>>>> 45dd96a7907ef6e48d8265eb403375bc9f6d7195
 ?>
 <form method="POST">
   <div class="form-group">

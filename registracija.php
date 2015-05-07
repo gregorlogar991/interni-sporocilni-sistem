@@ -11,10 +11,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 
       <link rel="stylesheet" type="text/css" href="loginRegistracija.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
     <title>Interni sporocilni sistem</title>
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap.min.css" rel="stylesheet">
 
     <link href="signin.css" rel="stylesheet">
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
@@ -46,26 +45,25 @@
     </div> <!-- /container -->
 
     <?php
-    //dizajn je se treba popraut da nebo isto k vpisna
+    include 'povezava.php';
     if(isset($_POST['submit']))
     {
-        $ime=$_POST['ime'];
-        $priimek=$_POST['priimek'];
-        $upoime=$_POST['user'];
-        $geslo=$_POST['geslo'];
+        $ime=mysqli_real_escape_string($con,$_POST['ime']);
+        $priimek=mysqli_real_escape_string($con,$_POST['priimek']);
+        $upoime=mysqli_real_escape_string($con, $_POST['user']);
+        $geslo=md5($_POST['geslo']);
 
-        $conn= mysqli_connect("localhost","root","","sporocilni_sistem") or die("Error " . mysqli_error($link));
-        if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+        if ($con->connect_error) {
+        die("Connection failed: " . $con->connect_error);
         } 
 
         $sql="INSERT INTO uporabnik(ime,priimek,uporabnisko_ime,geslo) values('$ime','$priimek','$upoime','$geslo')";
 
-        if ($conn->query($sql) === TRUE) {
+        if ($con->query($sql) === TRUE) {
             echo "Uspešno ste se registrirali!";
             header('Location: index.php');
         } else {
-            echo "Napaka: <br>" . $conn->error;
+            echo "Napaka: <br>" . $con->error;
     }}
     else if(isset($_POST['back']))
     {
