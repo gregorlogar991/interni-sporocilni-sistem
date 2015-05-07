@@ -9,9 +9,15 @@
 		Prejemnik:
 		<select name="prejemnik">
 			<?php
+<<<<<<< HEAD
 				include "povezava.php";
 				session_start();
 				$id=$_SESSION['id'];
+=======
+				session_start();
+				$id=$_SESSION['id'];
+           	 	$con = mysqli_connect("localhost","root","","sporocilni_sistem") or die("Error " . mysqli_error($link));
+>>>>>>> origin/master
             	$sql = "select u.ime, u.priimek, u.id_uporabnika from uporabnik u";
             	$rez = mysqli_query($con, $sql);
             	echo '<option>Izberi prejemnika</option>';
@@ -25,6 +31,10 @@
 		Skupina:
 		<select name="skupine">
 			<?php
+<<<<<<< HEAD
+=======
+           	 	$con = mysqli_connect("localhost","root","","sporocilni_sistem") or die("Error " . mysqli_error($link));
+>>>>>>> origin/master
             	$sqlskupina = "select s.id_skupine, s.naslov from skupina s where s.id_lastnika='$id'";
             	$rezskupina = mysqli_query($con, $sqlskupina);
             	echo '<option>Izberi skupino</option>';

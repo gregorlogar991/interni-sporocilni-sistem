@@ -9,7 +9,6 @@
     <link rel="icon" href="../../favicon.ico">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-
       <link rel="stylesheet" type="text/css" href="loginRegistracija.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
@@ -44,14 +43,22 @@
               echo '<font color="red">Izpolnite VSE podatke</font>';
             }
             else{
+<<<<<<< HEAD
               $sql = "select ID_uporabnika, ime, priimek, zadnja_prijava from uporabnik where uporabnisko_ime ='$user' and geslo ='$geslo'";
+=======
+              $sql = "select ID_uporabnika, ime, priimek from uporabnik where uporabnisko_ime ='$user' and geslo ='$geslo'";
+>>>>>>> origin/master
               $select = mysqli_query($con, $sql);
               if(mysqli_num_rows($select) == 1){
                 $row = mysqli_fetch_row($select);
                 $_SESSION['id'] = $row[0];
                 $_SESSION['ime'] = $row[1];
+<<<<<<< HEAD
                 $_SESSION['priimek'] = $row[2];
                 $_SESSION['prijava']=$row[3];                
+=======
+                $_SESSION['priimek'] = $row[2];                
+>>>>>>> origin/master
                 $id=$_SESSION['id'];
                 //$sql= "update uporabnik set zadnja_prijava = now() where ID_uporabnika = '$id'";
                 //mysqli_query($con,$sql);
